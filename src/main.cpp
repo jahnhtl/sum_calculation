@@ -9,29 +9,38 @@
 #include <Arduino.h>
 
 void setup() {
-  // put your setup code here, to run once:
   Serial.begin(115200);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  int summe = 0;
-  int anzahl;
-  int zahl = 1; // set to 1 to avoid loop break during initial iteration
+  int sum = 0;
+  int count;
+  int number = 1; // set to 1 to avoid loop break during initial iteration
 
-  for(anzahl = 0; anzahl <= 20 || zahl == 0; anzahl++)
-  {
-    Serial.print("Zahl eingeben: ");
-    zahl = Serial.parseInt();
-    summe = summe + zahl;
+  Serial.println("\n==== Start new calculation ====");
+
+  for(count = 0; count < 20 && number != 0; count++) {
+    delay(1); // without delay flushing will not work properly
+    while(Serial.available()) Serial.read(); // flush serial buffer
+
+    Serial.print("Input number: ");
+
+    while(!Serial.available()) {
+      // wait for user input
+    }
+
+    number = Serial.parseInt();
+    sum = sum + number;
   }
 
-  if (anzahl >= 20)
-  {
-    Serial.println("Maximal erreicht!");
+  if (count >= 20) {
+    Serial.println("\nMaximum of numbers reached!");
   }   
 
-  Serial.print("Summe = ");
-  Serial.println(summe);
+  Serial.print("Sum = ");
+  Serial.println(sum);
+
+  // wait before strating new calculation
+  delay(2000);
 
 }
