@@ -14,12 +14,12 @@ void setup() {
 
 void loop() {
   int sum = 0;
-  int count;
-  int number = 1; // set to 1 to avoid loop break during initial iteration
+  int count = 0;
+  int number;
 
   Serial.println("\n==== Start new calculation ====");
 
-  for(count = 0; count < 20 && number != 0; count++) {
+  do {
     delay(1); // without delay flushing will not work properly
     while(Serial.available()) Serial.read(); // flush serial buffer
 
@@ -31,11 +31,13 @@ void loop() {
 
     number = Serial.parseInt();
     sum = sum + number;
-  }
 
-  if (count >= 20) {
-    Serial.println("\nMaximum of numbers reached!");
-  }   
+    if (count >= 20) {
+      Serial.println("\nMaximum of numbers reached!");
+      break; // jump out of the loop
+    }   
+  } while(number != 0);
+
 
   Serial.print("Sum = ");
   Serial.println(sum);
