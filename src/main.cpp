@@ -8,6 +8,8 @@
 
 #include <Arduino.h>
 
+#define MAX_COUNT 20    // avoid hard-coded numbers
+
 void setup() {
   Serial.begin(115200);
 }
@@ -32,7 +34,7 @@ void loop() {
     number = Serial.parseInt();
     sum = sum + number;
 
-    if (count >= 20) {
+    if (count >= MAX_COUNT) {
       Serial.println("\nMaximum of numbers reached!");
       break; // jump out of the loop
     }   
