@@ -35,11 +35,12 @@ void loop() {
 
     number = Serial.parseInt();
     sum = sum + number;
+    count++;
 
     if (count >= MAX_COUNT) {
       Serial.println("\nMaximum number of inputs reached!");
-      break; // jump out of the loop
-    }   
+      break; // jump out of the while loop
+    }
   } while(number != 0);
 
 
